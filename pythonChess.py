@@ -1,4 +1,3 @@
-
 #I developed this program using bottom-up development.
 
 class board:
@@ -59,10 +58,45 @@ class board:
                         return False
                 return True
         
+                if (convertOld or convertNew) == None:
+                        return False
+                if currentBoard[convertOld[0]][convertOld[1]] == "P" or "p":
+                        return (board.correctPawn(currentBoard, color, convertOld, convertNew))
+                if currentBoard[convertOld[0]][convertOld[1]] == "R" or "r":
+                        return (board.correctRook(currentBoard, color, convertOld, convertNew))
+                if currentBoard[convertOld[0]][convertOld[1]] == "N" or "n":
+                        return (board.correctKnight(currentBoard, color, convertOld, convertNew))
+                if currentBoard[convertOld[0]][convertOld[1]] == "B" or "b":
+                        return (board.correctBishop(currentBoard, color, convertOld, convertNew))
+                if currentBoard[convertOld[0]][convertOld[1]] == "Q" or "q":
+                        return (board.correctQueen(currentBoard, color, convertOld, convertNew))
+                if currentBoard[convertOld[0]][convertOld[1]] == "K" or "k":
+                        return (board.correctKing(currentBoard, color, convertOld, convertNew))
+                return False
+
+        def correctPawn(currentBoard, color, convertOld, convertNew):
+                return True
+
+        def correctRook():
+                pass
+
+        def correctKnight(currentBoard, color, convertOld, convertNew):
+                pass
+
+        def correctBishop(currentBoard, color, convertOld, convertNew):
+                pass
+
+        def correctQueen(currentBoard, color, convertOld, convertNew):
+                pass
+
+        def correctKing(currentBoard, color, convertOld, convertNew):
+                pass
+
         def convertLocation(Location):
                 if Location[1].isdigit():
                         X = Location[0]
                         Y = int(Location[1])
+                        Location[1] = int(Location[1])
                 else:
                         return None
                 if (Y > 8) or (Y < 0):
@@ -91,7 +125,6 @@ class board:
                 if X == "H" or "h":
                         Location[0] = 8
                         return Location
-                print(239847)
                 return None
                 
         
