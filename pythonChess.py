@@ -13,7 +13,7 @@ class board:
         whitePieces = ["P", "R", "N", "B", "Q", "K"]
         blackPieces = ["p", "r", "n", "b", "q", "k"]
 
-        def printBoard(currentBoard, color):#Prints the chess board.
+        def printBoard(currentBoard, color): # Prints the chess board.
                 if color % 2 == 0:
                         print("  a  b  c  d  e  f  g  h")
                         number = 8
@@ -37,11 +37,11 @@ class board:
                         del number
                         return
 
-        def start():#This function gives the user a nice startup message.
+        def start(): # This function gives the user a nice startup message.
                 print("Hello, welcome to python chess! The uppercase pieces are white and the lowercase pieces are black.")
                 return
     
-        def makeMove(currentBoard, color):#Returns the old location and new location a piece chosen by the player.
+        def makeMove(currentBoard, color): # Returns the old location and new location a piece chosen by the player.
                 if color % 2 == 0:
                         print("HELLO, PLAYER 1 (WHITE)")
                 else:
@@ -59,14 +59,23 @@ class board:
                         board.newLocation[1] = input()
                 return (board.oldLocation, board.newLocation)
 
-        def correctMove(currentBoard, color, oldLocation, newLocation):#Returns a True or False value.
-                if(oldLocation == newLocation): # If the piece isn't moved
+        def correctMove(currentBoard, color, oldLocation, newLocation): # Returns a True or False value.
+                if (oldLocation == newLocation): # If the piece isn't moved
                         return False
                 if (oldLocation[0] == "") or (oldLocation[1] == "") or (newLocation[0] == "") or (newLocation[1] == ""):
                         return False
-
+                
                 convertOld = board.convertLocation(oldLocation)
                 convertNew = board.convertLocation(newLocation)
+
+                if (int(convertNew[0]) >= 8 or int(convertNew[1] >= 8)): # Outside of bounds.
+                        return False
+                if (int(convertNew[0]) < 0 or int(convertNew[1]) < 0): # Outside of bounds.
+                        return False
+                if (int(convertOld[0]) >= 8 or int(convertOld[1]) >= 8): # Outside of bounds.
+                        return False
+                if (int(convertOld[0]) < 0 or int(convertOld[1]) < 0): # Outside of bounds.
+                        return False
 
                 if (currentBoard[convertOld[0]][convertOld[1]] == "P") or (currentBoard[convertOld[0]][convertOld[1]] == "p"):
                         return (board.correctPawn(currentBoard, color, convertOld, convertNew))  
@@ -88,7 +97,7 @@ class board:
                 
                 return False
         
-        def flip(Y):
+        def flip(Y): # Flips number around for formatting.
                 if Y == 8:
                         return 0
                 if Y == 7:
@@ -107,7 +116,7 @@ class board:
                         return 7
                 return False
 
-        def convertLocation(Location):#Converts the strings given by the user into numbers corresponding to the board array. Location[0] is a letter. Location[1] is a number
+        def convertLocation(Location): # Converts the strings given by the user into numbers corresponding to the board array. Location[0] is a letter. Location[1] is a number
                 if Location[1].isdigit():
                         X = Location[0]
                         Y = Location[1]
@@ -143,7 +152,7 @@ class board:
                         return Location
                 return None
         
-        def correctPawn(currentBoard, color, convertOld, convertNew): #Returns True if the move was a correct pawn move and false if it was an incorrect pawn move.
+        def correctPawn(currentBoard, color, convertOld, convertNew): # Returns True if the move was a correct pawn move and false if it was an incorrect pawn move.
                 if color % 2 == 0:#If White
                         # print("W")
                         # Moving forward
@@ -203,7 +212,7 @@ class board:
 
                 return False
 
-        def pawnChange(currentBoard, color, convertOld):
+        def pawnChange(currentBoard, color, convertOld): # Let's the user pick the new exchange piece after reaching the end.
                 if(color % 2 == 0):
                         print("Your pawn has reached the end!! You may exchange the pawn for a Q, B, N, or R: ")
                         newType = input()
@@ -219,7 +228,7 @@ class board:
                                 newType = input()
                         currentBoard[convertOld[0]][convertOld[1]] = newType
 
-        def correctRook(currentBoard, color, convertOld, convertNew):
+        def correctRook(currentBoard, color, convertOld, convertNew): # Returns True if the move was a correct rook move and false if it was an incorrect rook move.
                 # print("Rook")
                 if color % 2 == 0: # White
                         if currentBoard[convertOld[0]][convertOld[1]] != "R":
@@ -262,7 +271,7 @@ class board:
                                 return True
                 return False
 
-        def correctKnight(currentBoard, color, convertOld, convertNew):
+        def correctKnight(currentBoard, color, convertOld, convertNew): # Returns True if the move was a correct knight move and false if it was an incorrect knight move.
                 # print("Knight")
                 if color % 2 == 0:
                         if currentBoard[convertOld[0]][convertOld[1]] != "N":
@@ -270,9 +279,25 @@ class board:
                 if color % 2 != 0:
                         if currentBoard[convertOld[0]][convertOld[1]] != "n":
                                 return False
-                return True
+                if convertNew[0] == convertOld[0]+2 and convertNew[1] == convertOld[1]+1:
+                        return True
+                if convertNew[0] == convertOld[0]+2 and convertNew[1] == convertOld[1]-1:
+                        return True
+                if convertNew[0] == convertOld[0]-2 and convertNew[1] == convertOld[1]+1:
+                        return True
+                if convertNew[0] == convertOld[0]-2 and convertNew[1] == convertOld[1]-1:
+                        return True
+                if convertNew[0] == convertOld[0]+1 and convertNew[1] == convertOld[1]+2:
+                        return True
+                if convertNew[0] == convertOld[0]+1 and convertNew[1] == convertOld[1]-2:
+                        return True
+                if convertNew[0] == convertOld[0]-1 and convertNew[1] == convertOld[1]+2:
+                        return True
+                if convertNew[0] == convertOld[0]-1 and convertNew[1] == convertOld[1]-2:
+                        return True
+                return False
 
-        def correctBishop(currentBoard, color, convertOld, convertNew):
+        def correctBishop(currentBoard, color, convertOld, convertNew): # Returns True if the move was a correct bishop move and false if it was an incorrect bishop move.
                 # print("Bishop")
                 if color % 2 == 0:
                         if currentBoard[convertOld[0]][convertOld[1]] != "B":
@@ -282,7 +307,7 @@ class board:
                                 return False
                 return True
 
-        def correctQueen(currentBoard, color, convertOld, convertNew):
+        def correctQueen(currentBoard, color, convertOld, convertNew): # Returns True if the move was a correct queen move and false if it was an incorrect queen move.
                 # print("Queen")
                 if color % 2 == 0:
                         if currentBoard[convertOld[0]][convertOld[1]] != "Q":
@@ -292,7 +317,7 @@ class board:
                                 return False
                 return True
 
-        def correctKing(currentBoard, color, convertOld, convertNew):
+        def correctKing(currentBoard, color, convertOld, convertNew): # Returns True if the move was a correct king move and false if it was an incorrect king move.
                 # print("King")
                 if color % 2 == 0:
                         if currentBoard[convertOld[0]][convertOld[1]] != "K":
@@ -302,7 +327,7 @@ class board:
                                 return False
                 return True
 
-        def checkmate(currentBoard, color):
+        def checkmate(currentBoard, color): # Checks if either king is in checkmate.
                 kingLocation = ["",""]
                 if(color % 2 == 0): # White
                         row = 0
@@ -336,4 +361,3 @@ while board.checkmate(Board, playerCount) != True:
         board.chessBoard[oldMove[0]][oldMove[1]] = '-'
         # print(oldMove, newMove)
         playerCount = playerCount + 1
-print("THE END")
