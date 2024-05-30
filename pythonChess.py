@@ -3,7 +3,7 @@ class board:
                   ["p", "p", "p", "p", "p", "p", "p", "p"], 
                   ["-", "-", "-", "-", "-", "-", "-", "-"], 
                   ["-", "-", "-", "-", "-", "-", "-", "-"], 
-                  ["-", "-", "-", "-", "B", "-", "-", "-"], 
+                  ["-", "-", "-", "-", "Q", "-", "-", "-"], 
                   ["-", "-", "-", "-", "-", "-", "-", "-"], 
                   ["P", "P", "P", "P", "P", "P", "P", "P"], 
                   ["R", "N", "B", "Q", "K", "B", "N", "R"]]
@@ -365,7 +365,89 @@ class board:
                 if color % 2 != 0:
                         if currentBoard[convertOld[0]][convertOld[1]] != "q":
                                 return False
-                return True
+                                i = convertOld[0]
+                if convertOld[0] == convertNew[0]: # Moving Vertically
+                        i = convertOld[1] - convertNew[1] # Space
+                        if i < 0: # Right
+                                i = i + 1
+                                while i != 0 and i < 8:
+                                        if(currentBoard[convertOld[0]][convertOld[1]-i] != "-"):
+                                                return False
+                                        i = i + 1
+                                return True
+                        if i > 0: # Left
+                                i = i - 1
+                                while i != 0 and i < 8:
+                                        if(currentBoard[convertOld[0]][convertOld[1]-i] != "-"):
+                                                return False
+                                        i = i - 1
+                                return True
+                if convertOld[1] == convertNew[1]: # Moving Horizotally
+                        i = convertOld[0] - convertNew[0] # Space
+                        if i < 0: # Right
+                                i = i + 1
+                                while i != 0 and i < 8:
+                                        if(currentBoard[convertOld[0]-i][convertOld[1]] != "-"):
+                                                return False
+                                        i = i + 1
+                                return True
+                        if i > 0: # Left
+                                i = i - 1
+                                while i != 0 and i < 8:
+                                        if(currentBoard[convertOld[0]-i][convertOld[1]] != "-"):
+                                                return False
+                                        i = i - 1
+                                return True
+                # Moving Diagonally
+                i = convertOld[0]
+                j = convertOld[1]
+                find = False
+                i = i + 1
+                j = j + 1
+                while i <= 7 and i >= 0 and j <= 7 and j >= 0:
+                        if convertNew[0] == i and convertNew[1] == j:
+                                return True
+                        elif currentBoard[i][j] != "-":
+                                break
+                        i = i + 1
+                        j = j + 1
+                i = convertOld[0]
+                j = convertOld[1]
+                find = False
+                i = i + 1
+                j = j - 1
+                while i <= 7 and i >= 0 and j <= 7 and j >= 0:
+                        if convertNew[0] == i and convertNew[1] == j:
+                                return True
+                        elif currentBoard[i][j] != "-":
+                                break
+                        i = i + 1
+                        j = j - 1
+                i = convertOld[0]
+                j = convertOld[1]
+                find = False
+                i = i - 1
+                j = j + 1
+                while i <= 7 and i >= 0 and j <= 7 and j >= 0:
+                        if convertNew[0] == i and convertNew[1] == j:
+                                return True
+                        elif currentBoard[i][j] != "-":
+                                break
+                        i = i - 1
+                        j = j + 1
+                i = convertOld[0]
+                j = convertOld[1]
+                find = False
+                i = i - 1
+                j = j - 1
+                while i <= 7 and i >= 0 and j <= 7 and j >= 0:
+                        if convertNew[0] == i and convertNew[1] == j:
+                                return True
+                        elif currentBoard[i][j] != "-":
+                                break
+                        i = i - 1
+                        j = j - 1
+                return False
 
         def correctKing(currentBoard, color, convertOld, convertNew): # Returns True if the move was a correct king move and false if it was an incorrect king move.
                 # print("King")
