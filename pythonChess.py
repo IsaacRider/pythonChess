@@ -3,7 +3,7 @@ class board:
                   ["p", "p", "p", "p", "p", "p", "p", "p"], 
                   ["-", "-", "-", "-", "-", "-", "-", "-"], 
                   ["-", "-", "-", "-", "-", "-", "-", "-"], 
-                  ["-", "-", "-", "-", "-", "-", "-", "-"], 
+                  ["-", "-", "-", "K", "-", "-", "-", "-"], 
                   ["-", "-", "-", "-", "-", "-", "-", "-"], 
                   ["P", "P", "P", "P", "P", "P", "P", "P"], 
                   ["R", "N", "B", "Q", "K", "B", "N", "R"]]
@@ -185,7 +185,7 @@ class board:
                 if color % 2 != 0:#If Black
                         # print("B")
                         # Moving forward
-                        if currentBoard[convertOld[7]][convertOld[1]] != "p":#If not black pawn
+                        if currentBoard[convertOld[0]][convertOld[1]] != "p":#If not black pawn
                                 return False
                         if convertOld[0] == 1:#If pawn moving two spaces forward
                                 if (currentBoard[convertOld[0]+1][convertOld[1]] == "-"):#If the space infront of pawn is empty.
@@ -325,7 +325,23 @@ class board:
                 if color % 2 != 0:
                         if currentBoard[convertOld[0]][convertOld[1]] != "k":
                                 return False
-                return True
+                if convertNew[0] == convertOld[0]+1 and convertNew[1] == convertOld[1]+1:
+                        return True
+                if convertNew[0] == convertOld[0]+1 and convertNew[1] == convertOld[1]:
+                        return True
+                if convertNew[0] == convertOld[0]+1 and convertNew[1] == convertOld[1]-1:
+                        return True
+                if convertNew[0] == convertOld[0] and convertNew[1] == convertOld[1]+1:
+                        return True
+                if convertNew[0] == convertOld[0] and convertNew[1] == convertOld[1]-1:
+                        return True
+                if convertNew[0] == convertOld[0]-1 and convertNew[1] == convertOld[1]+1:
+                        return True
+                if convertNew[0] == convertOld[0]-1 and convertNew[1] == convertOld[1]:
+                        return True
+                if convertNew[0] == convertOld[0]-1 and convertNew[1] == convertOld[1]-1:
+                        return True
+                return False
 
         def checkmate(currentBoard, color): # Checks if either king is in checkmate.
                 kingLocation = ["",""]
