@@ -3,7 +3,7 @@ class board:
                   ["p", "p", "p", "p", "p", "p", "p", "p"], 
                   ["-", "-", "-", "-", "-", "-", "-", "-"], 
                   ["-", "-", "-", "-", "-", "-", "-", "-"], 
-                  ["-", "-", "-", "K", "-", "-", "-", "-"], 
+                  ["-", "-", "-", "-", "B", "-", "-", "-"], 
                   ["-", "-", "-", "-", "-", "-", "-", "-"], 
                   ["P", "P", "P", "P", "P", "P", "P", "P"], 
                   ["R", "N", "B", "Q", "K", "B", "N", "R"]]
@@ -299,13 +299,63 @@ class board:
 
         def correctBishop(currentBoard, color, convertOld, convertNew): # Returns True if the move was a correct bishop move and false if it was an incorrect bishop move.
                 # print("Bishop")
+                print(convertNew)
+                print(convertOld)
                 if color % 2 == 0:
                         if currentBoard[convertOld[0]][convertOld[1]] != "B":
                                 return False
                 if color % 2 != 0:
                         if currentBoard[convertOld[0]][convertOld[1]] != "b":
                                 return False
-                return True
+                i = convertOld[0]
+                j = convertOld[1]
+                find = False
+                i = i + 1
+                j = j + 1
+                while i <= 7 and i >= 0 and j <= 7 and j >= 0:
+                        if convertNew[0] == i and convertNew[1] == j:
+                                return True
+                        elif currentBoard[i][j] != "-":
+                                break
+                        i = i + 1
+                        j = j + 1
+                i = convertOld[0]
+                j = convertOld[1]
+                find = False
+                i = i + 1
+                j = j - 1
+                while i <= 7 and i >= 0 and j <= 7 and j >= 0:
+                        if convertNew[0] == i and convertNew[1] == j:
+                                return True
+                        elif currentBoard[i][j] != "-":
+                                break
+                        i = i + 1
+                        j = j - 1
+                i = convertOld[0]
+                j = convertOld[1]
+                find = False
+                i = i - 1
+                j = j + 1
+                while i <= 7 and i >= 0 and j <= 7 and j >= 0:
+                        if convertNew[0] == i and convertNew[1] == j:
+                                return True
+                        elif currentBoard[i][j] != "-":
+                                break
+                        i = i - 1
+                        j = j + 1
+                i = convertOld[0]
+                j = convertOld[1]
+                find = False
+                i = i - 1
+                j = j - 1
+                while i <= 7 and i >= 0 and j <= 7 and j >= 0:
+                        if convertNew[0] == i and convertNew[1] == j:
+                                return True
+                        elif currentBoard[i][j] != "-":
+                                break
+                        i = i - 1
+                        j = j - 1
+                return False
 
         def correctQueen(currentBoard, color, convertOld, convertNew): # Returns True if the move was a correct queen move and false if it was an incorrect queen move.
                 # print("Queen")
