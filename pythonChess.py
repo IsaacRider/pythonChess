@@ -336,3 +336,4 @@ while board.checkmate(Board, playerCount) != True:
         board.chessBoard[oldMove[0]][oldMove[1]] = '-'
         # print(oldMove, newMove)
         playerCount = playerCount + 1
+print("THE END")
